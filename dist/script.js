@@ -3168,19 +3168,31 @@ function (_Slider) {
       });
     }
   }, {
-    key: "init",
-    value: function init() {
+    key: "autoPlayVideo",
+    value: function autoPlayVideo() {
       var _this3 = this;
 
+      var idInterval;
+      idInterval = setInterval(function () {
+        return _this3.nextSlide();
+      }, 2000);
+
+      if (this.autoPlay) {
+        this.container.addEventListener('mouseenter', function () {
+          clearInterval(idInterval);
+        });
+        this.container.addEventListener('mouseleave', function () {
+          _this3.autoPlayVideo();
+        });
+      }
+    }
+  }, {
+    key: "init",
+    value: function init() {
       this.container.style.cssText = "\n            display: flex;\n            flex-wrap: wrap;\n            overflow: hidden;\n            alighn-items: flex-start;\n        ";
       this.bindTriggers();
       this.decorizeSlides();
-
-      if (this.autoPlay) {
-        setInterval(function () {
-          return _this3.nextSlide();
-        }, 5000);
-      }
+      this.autoPlayVideo();
     }
   }]);
 

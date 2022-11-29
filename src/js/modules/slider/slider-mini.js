@@ -57,6 +57,19 @@ export default class MiniSlider extends Slider {
         });
     }
 
+    autoPlayVideo() { 
+        let idInterval;
+        idInterval = setInterval(() => this.nextSlide(), 2000);
+        if (this.autoPlay) {
+            this.container.addEventListener('mouseenter', () => {
+                clearInterval(idInterval);
+            });
+            this.container.addEventListener('mouseleave', () => {
+                this.autoPlayVideo();
+            });
+        }
+    }
+
     init() {
         this.container.style.cssText = `
             display: flex;
@@ -67,8 +80,6 @@ export default class MiniSlider extends Slider {
 
         this.bindTriggers();
         this.decorizeSlides();
-        if(this.autoPlay) {
-            setInterval(() => this.nextSlide(), 5000);
-        }
+        this.autoPlayVideo();   
     }
 }
