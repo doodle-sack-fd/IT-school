@@ -57,7 +57,7 @@ export default class MiniSlider extends Slider {
         });
     }
 
-    autoPlayVideo() { 
+    autoPlayVideo() {
         let idInterval;
         idInterval = setInterval(() => this.nextSlide(), 2000);
         if (this.autoPlay) {
@@ -71,15 +71,17 @@ export default class MiniSlider extends Slider {
     }
 
     init() {
-        this.container.style.cssText = `
+        try {
+            this.container.style.cssText = `
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
             alighn-items: flex-start;
         `;
 
-        this.bindTriggers();
-        this.decorizeSlides();
-        this.autoPlayVideo();   
+            this.bindTriggers();
+            this.decorizeSlides();
+            this.autoPlayVideo();
+        } catch (error) { }
     }
 }
